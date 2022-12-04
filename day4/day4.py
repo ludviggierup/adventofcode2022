@@ -5,20 +5,15 @@ pairs1 = 0
 pairs2 = 0
 for line in lines:
     first, second = line.split(',')
-    first_range = list(map(int, first.split('-')))
-    second_range = list(map(int, second.split('-')))
 
-    # Part 1 
-    condition1 = first_range[0] <= second_range[0] and first_range[1] >= second_range[1]
-    condition2 = first_range[0] >= second_range[0] and first_range[1] <= second_range[1]
+    s1, e1 = first.split('-')
+    s2, e2 = second.split('-')
+    s1,e1,s2,e2 = [int(x) for x in [s1, e1, s2, e2]]
 
-    if condition1 or condition2:
+    if (s1 <= s2 and e1 >= e2) or (s1 >= s2 and e1 <= e2):
         pairs1 += 1
-
-    # Part 2
-    condition3 = len(set(range(first_range[0], first_range[1] + 1)) & set(range(second_range[0], second_range[1] + 1))) > 0
-                         
-    if condition3:
+    
+    if not(e1 < s2 or e2 < s1): # not(not overlapping) 
         pairs2 += 1
 
-    print(pairs1, pairs2 )
+print(pairs1, pairs2 )
